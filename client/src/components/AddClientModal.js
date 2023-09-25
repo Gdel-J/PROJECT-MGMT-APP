@@ -1,15 +1,37 @@
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { useMutation } from "@apollo/client";
+import { ADD_CLIENT } from "../mutations/clientMutations"; // Imported the ADD_CLIENT mutation
+import { GET_CLIENTS } from "../queries/clientQueries";
 
 export default function AddClientModal() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const [addClient] = useMutation(ADD_CLIENT, {
+    variables: { name, email, phone },
+    update(cache, { data: { addClient } }) {
+      const { clients } = cache.readQuery({ query: GET_CLIENTS });
+      cache.writeQuery({
+        query: GET_CLIENTS,
+        data: { clients: [...clients, addClient] },
+      });
+    },
+  });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(name, email, phone);
+
+    if (name === '' || email === '' || phone === '') {
+      return alert('Please fill in all fields');
+    }
+
+    addClient({ variables: { name, email, phone } }); // Properly pass the variables
+
+    setName('');
+    setEmail('');
+    setPhone('');
   };
 
   return (
@@ -21,7 +43,7 @@ export default function AddClientModal() {
         data-bs-target="#addClientModal"
       >
         <div className="d-flex align-items-center">
-          <FaUser className='icon' />
+          <FaUser className="icon" />
           <div>Add Client</div>
         </div>
       </button>
@@ -48,36 +70,42 @@ export default function AddClientModal() {
             <div className="modal-body">
               <form onSubmit={onSubmit}>
                 <div className="mb-3">
-                  <label className='form-label'>Name</label>
+                  <label className="form-label">Name</label>
                   <input
                     type="text"
                     className="form-control"
                     id="name"
                     value={name}
-                    onChange={e => setName(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div className="mb-3">
-                  <label className='form-label'>Email</label>
+                  <label className="form-label">Email</label>
                   <input
                     type="text"
                     className="form-control"
                     id="email"
                     value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="mb-3">
-                  <label className='form-label'>Phone</label>
+                  <label className="form-label">Phone</label>
                   <input
                     type="text"
                     className="form-control"
                     id="phone"
                     value={phone}
-                    onChange={e => setPhone(e.target.value)}
+                    onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
-                <button type="submit"  data-bs-dismiss="modal" className="btn btn-secondary">Submit</button>
+                <button
+                  type="submit"
+                  data-bs-dismiss="modal"
+                  className="btn btn-secondary"
+                >
+                  Submit
+                </button>
               </form>
             </div>
           </div>
