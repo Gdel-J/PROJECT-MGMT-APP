@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { useMutation } from "@apollo/client";
-import { ADD_CLIENT } from "../mutations/clientMutations"; // Imported the ADD_CLIENT mutation
+import { ADD_CLIENT } from "../mutations/clientMutations";
 import { GET_CLIENTS } from "../queries/clientQueries";
 
 export default function AddClientModal() {
@@ -23,11 +23,11 @@ export default function AddClientModal() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (name === '' || email === '' || phone === '') {
+    if (name.trim() === '' || email.trim() === '' || phone.trim() === '') {
       return alert('Please fill in all fields');
     }
 
-    addClient({ variables: { name, email, phone } }); // Properly pass the variables
+    addClient({ variables: { name, email, phone } });
 
     setName('');
     setEmail('');
@@ -57,9 +57,9 @@ export default function AddClientModal() {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">
+              <h5 className="modal-title" id="exampleModalLabel">
                 Add Client
-              </h1>
+              </h5>
               <button
                 type="button"
                 className="btn-close"
@@ -82,7 +82,7 @@ export default function AddClientModal() {
                 <div className="mb-3">
                   <label className="form-label">Email</label>
                   <input
-                    type="text"
+                    type="email"
                     className="form-control"
                     id="email"
                     value={email}
@@ -92,7 +92,7 @@ export default function AddClientModal() {
                 <div className="mb-3">
                   <label className="form-label">Phone</label>
                   <input
-                    type="text"
+                    type="tel"
                     className="form-control"
                     id="phone"
                     value={phone}
@@ -101,7 +101,6 @@ export default function AddClientModal() {
                 </div>
                 <button
                   type="submit"
-                  data-bs-dismiss="modal"
                   className="btn btn-secondary"
                 >
                   Submit
