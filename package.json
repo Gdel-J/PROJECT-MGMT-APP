@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodemon, server/index.js"
-
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm start",
+    "client": "cd client && npm start"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "mongoose": "^7.5.2"
   },
   "devDependencies": {
+    "concurrently": "^8.2.1",
     "dotenv": "^16.3.1",
     "nodemon": "^3.0.1"
   }

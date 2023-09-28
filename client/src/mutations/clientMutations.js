@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 
 const ADD_CLIENT = gql `
-muation addClient($name: String!, $email: String!, $phone: String!) {
+mutation addClient($name: String!, $email: String!, $phone: String!) {
 
   addClient(name: $name, email: $email, phone: $phone)
   {
@@ -13,7 +13,7 @@ muation addClient($name: String!, $email: String!, $phone: String!) {
   }
 }
 
-`
+`;
 
 const DELETE_CLIENT = gql`
   mutation deleteClient($id: ID!) {
