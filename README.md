@@ -81,4 +81,4 @@ Create, Read, Update, and Delete projects.
 Task management within projects.
 User collaborations and notifications.
 ## Credits
-Created by Gérard Del Vecchio.
+Created by Gérard Del Vecchio with Traversy Media ressource.
