@@ -57,7 +57,7 @@ MONGO_URI = 'your special connection to your database'
 **Add a client:**
 ![Screenshot 02](https://github.com/Gdel-J/PROJECT-MGMT-APP/assets/120201085/fa3fce7e-e012-4894-a55d-8ccaaa27d22d)
 
-**Add a pproject:**
+**Add a project:**
 ![Screenshot 03](https://github.com/Gdel-J/PROJECT-MGMT-APP/assets/120201085/b82ab2c9-d128-4f13-8b2a-7e5c867c0acb)
 
 ## License
